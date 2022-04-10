@@ -5,7 +5,6 @@ use std::path::Path;
 pub struct FileReader;
 
 impl FileReader {
-    
     fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
     where
         P: AsRef<Path>,
