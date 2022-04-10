@@ -6,6 +6,16 @@ pub struct Diff {
 }
 
 impl Diff {
+    /// Crea un nuevo Diff con los valores iniciales indicados
+    /// # Argumentos
+    ///
+    /// * `left` - Vector de strings que contiene una parte del texto a comparar
+    /// * `right` - Vector de strings que contiene una parte del texto a comparar
+    /// # Ejemplo
+    /// ```
+    /// use crate::ejercicio2::tools::diff::Diff;
+    /// let diff = Diff::new([].to_vec(), [].to_vec());
+    /// ```
     pub fn new(left: Vec<String>, right: Vec<String>) -> Self {
         Self { left, right }
     }
@@ -25,6 +35,8 @@ impl Diff {
         }
     }
 
+    /// Devuelve una grilla con los largos de cada subsecuencia
+    /// comparando los vectores left y right.
     pub fn lcs(&self) -> Vec<Vec<i32>> {
         let m: usize = self.left.len();
         let n: usize = self.right.len();
@@ -32,7 +44,6 @@ impl Diff {
         let mut grid = vec![vec![0; n + 1]; m + 1];
 
         for item in grid.iter_mut().take(m + 1) {
-            //grid[i][0] = 0;
             item[0] = 0;
         }
 
@@ -41,8 +52,8 @@ impl Diff {
         }
 
         for i in 0..m {
-            for (j, right_item) in self.right.iter().enumerate().take(n) {
-                if self.left[i] == *right_item {
+            for j in 0..n {
+                if self.left[i] == self.right[j] {
                     grid[i + 1][j + 1] = grid[i][j] + 1;
                 } else {
                     grid[i + 1][j + 1] = cmp::max(grid[i + 1][j], grid[i][j + 1]);
@@ -53,6 +64,9 @@ impl Diff {
         grid
     }
 
+    /// Imprime por consola el resultado de hacer diff entre left y right
+    /// indicando con "<" lo que está a la izquierda, ">" lo que está a la derecha
+    /// y sin nada lo que es idéntico en ambos.
     pub fn print(&self) {
         let grid = Diff::lcs(self);
         Diff::print_diff(
@@ -70,8 +84,33 @@ mod tests {
     use super::Diff;
 
     #[test]
-    fn larger_can_hold_smaller() {
-        Diff::new([].to_vec(), [].to_vec());
-        assert!(1 == 1);
+    fn inicializacion() {
+        let left = [].to_vec();
+        let right = [].to_vec();
+
+        let diff = Diff::new(left.clone(), right.clone());
+
+        assert!(diff.left == left);
+        assert!(diff.right == right);
+
+        let left = [
+            "a".to_string(),
+            "b".to_string(),
+            "c".to_string(),
+            "d".to_string(),
+        ]
+        .to_vec();
+        let right = [
+            "a".to_string(),
+            "b".to_string(),
+            "c".to_string(),
+            "d".to_string(),
+        ]
+        .to_vec();
+
+        let diff = Diff::new(left.clone(), right.clone());
+
+        assert!(diff.left == left);
+        assert!(diff.right == right);
     }
 }

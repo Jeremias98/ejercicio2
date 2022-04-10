@@ -1,4 +1,4 @@
-mod tools;
+pub mod tools;
 
 use tools::arg_parser::ArgParser;
 use tools::diff::Diff;
