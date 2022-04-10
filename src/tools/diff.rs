@@ -78,39 +78,3 @@ impl Diff {
         );
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::Diff;
-
-    #[test]
-    fn inicializacion() {
-        let left = [].to_vec();
-        let right = [].to_vec();
-
-        let diff = Diff::new(left.clone(), right.clone());
-
-        assert!(diff.left == left);
-        assert!(diff.right == right);
-
-        let left = [
-            "a".to_string(),
-            "b".to_string(),
-            "c".to_string(),
-            "d".to_string(),
-        ]
-        .to_vec();
-        let right = [
-            "a".to_string(),
-            "b".to_string(),
-            "c".to_string(),
-            "d".to_string(),
-        ]
-        .to_vec();
-
-        let diff = Diff::new(left.clone(), right.clone());
-
-        assert!(diff.left == left);
-        assert!(diff.right == right);
-    }
-}
