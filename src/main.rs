@@ -1,5 +1,5 @@
 use ejercicio2::run;
 
-fn main() {
-    run();
+fn main() -> Result<(), String> {
+    run()
 }
