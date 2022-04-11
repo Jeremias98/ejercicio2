@@ -5,6 +5,11 @@ use std::path::Path;
 pub struct FileReader;
 
 impl FileReader {
+    /// Abre un archivo de texto y devuelve un buffer con las lineas del mismo
+    ///
+    /// # Argumentos
+    ///
+    /// * `filename` - Ruta del archivo
     fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
     where
         P: AsRef<Path>,
