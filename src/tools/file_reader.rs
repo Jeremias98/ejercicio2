@@ -35,7 +35,7 @@ impl FileReader {
     /// ```
     pub fn read_file_lines(path: &str) -> Result<Vec<String>, String> {
         let mut result: Vec<String> = Vec::new();
-
+        
         if let Ok(lines) = FileReader::read_lines(path) {
             for line in lines {
                 result.push(line.unwrap());

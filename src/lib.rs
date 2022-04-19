@@ -11,15 +11,8 @@ pub fn run() -> Result<(), String> {
         return Err("Debe proveer dos rutas para hacer el diff".to_string());
     }
 
-    let left = match FileReader::read_file_lines(&params[1]) {
-        Ok(lines) => lines,
-        Err(msj) => return Err(msj),
-    };
-
-    let right = match FileReader::read_file_lines(&params[2]) {
-        Ok(lines) => lines,
-        Err(msj) => return Err(msj),
-    };
+    let left = FileReader::read_file_lines(&params[1])?;
+    let right = FileReader::read_file_lines(&params[2])?;
 
     let diff = Diff::new(left, right);
     diff.print();
